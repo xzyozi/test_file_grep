@@ -35,3 +35,4 @@ wx_gui_before/
 # App data
 history.json
 *.grep.txt
+.aider*
