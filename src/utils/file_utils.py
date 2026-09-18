@@ -3,11 +3,12 @@ from pathlib import Path
 
 def is_safe_path(base_dir: str, target_path: str) -> bool:
     """
-    target_path が base_dir の内部または配下に安全に収まっているかを判定する。
+    Determine whether target_path is safely contained within base_dir or one of its subdirectories.
 
-    ../ や絶対パスによるディレクトリ外参照、NULLバイト（\x00）が含まれる場合は False を返す。
+    Returns False if the path contains a NULL byte (\x00), uses ../ traversal, or is an absolute path
+    pointing outside base_dir.
     """
-    # NULLバイトが含まれる場合は不正と判定する
+    # Reject paths containing a NULL byte
     if "\x00" in target_path:
         return False
 
@@ -23,13 +24,14 @@ def is_safe_path(base_dir: str, target_path: str) -> bool:
 
 def format_file_size(size_bytes: int) -> str:
     """
-    バイト数を "B", "KB", "MB", "GB" の単位でフォーマットする。
+    Format a byte count into a human-readable string using "B", "KB", "MB", or "GB" units.
 
-    例:
+    Examples:
         0 -> "0 B"
+        1023 -> "1023 B"
         1024 -> "1.0 KB"
         1048576 -> "1.0 MB"
-    負の値の場合は "0 B" を返す。
+    Negative values return "0 B".
     """
     if size_bytes < 0:
         return "0 B"
@@ -37,9 +39,9 @@ def format_file_size(size_bytes: int) -> str:
     if size_bytes == 0:
         return "0 B"
 
-    units = [(1024**3, "GB"), (1024**2, "MB"), (1024**1, "KB"), (1, "B")]
+    units = [(1024**3, "GB"), (1024**2, "MB"), (1024**1, "KB")]
     for unit_value, unit_name in units:
         if size_bytes >= unit_value:
             return f"{size_bytes / unit_value:.1f} {unit_name}"
 
-    return f"{size_bytes:.1f} B"
+    return f"{size_bytes} B"

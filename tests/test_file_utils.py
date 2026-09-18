@@ -45,8 +45,8 @@ class TestFormatFileSize:
         assert format_file_size(-100) == "0 B"
 
     def test_bytes(self):
-        """1023 は "1023.0 B" を返す"""
-        assert format_file_size(1023) == "1023.0 B"
+        """1023 は "1023 B" を返す"""
+        assert format_file_size(1023) == "1023 B"
 
     def test_kilobytes(self):
         """1024 は "1.0 KB" を返す"""
