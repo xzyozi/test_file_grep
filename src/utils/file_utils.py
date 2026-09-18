@@ -12,7 +12,11 @@ def is_safe_path(base_dir: str, target_path: str) -> bool:
         return False
 
     base_path = Path(base_dir).resolve()
-    target_resolved = Path(target_path).resolve()
+    target_path_obj = Path(target_path)
+    if target_path_obj.is_absolute():
+        target_resolved = target_path_obj.resolve()
+    else:
+        target_resolved = (base_path / target_path_obj).resolve()
 
     return target_resolved.is_relative_to(base_path)
 

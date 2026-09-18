@@ -8,6 +8,10 @@ class TestIsSafePath:
         """配下の通常パスは安全と判定される"""
         assert is_safe_path(str(tmp_path), str(tmp_path / "file.txt")) is True
 
+    def test_relative_path_inside(self, tmp_path):
+        """base_dir からの相対パスは安全と判定される"""
+        assert is_safe_path(str(tmp_path), "file.txt") is True
+
     def test_subdirectory_path(self, tmp_path):
         """サブディレクトリ内のパスは安全と判定される"""
         subdir = tmp_path / "subdir"
