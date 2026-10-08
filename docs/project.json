@@ -1,0 +1,8 @@
+{
+  "key": "TFG",
+  "name": "test_file_grep",
+  "base_branch": "develop",
+  "created_at": "2026-10-08",
+  "description": "A GUI grep tool for searching text in files",
+  "github_repo": "xzyozi/test_file_grep"
+}
